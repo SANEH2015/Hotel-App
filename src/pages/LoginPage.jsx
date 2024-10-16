@@ -1,11 +1,15 @@
 import React from 'react'
-import LoginForm from '../component/LoginForm'
+
+import AdminPost from './AdminPost'
+
+
+
 
 export default function LoginPage() {
 
   return (
     <div>
- <LoginForm/>
+<AdminPost/>
     </div>
   )
 }

@@ -5,6 +5,11 @@ const initialState = {
   email: '',
   password: '',
   confirmPassword: '',
+  role: 'user', // Default to 'user'
+  companyName: '',
+  companyAddress: '',
+  phoneNumber: '',
+  adminEmail: '',
 };
 
 export const registerSlice = createSlice({
@@ -23,12 +28,38 @@ export const registerSlice = createSlice({
     setConfirmPassword: (state, action) => {
       state.confirmPassword = action.payload;
     },
-    resetForm: () => initialState,  
+    setRole: (state, action) => {
+      state.role = action.payload;
+    },
+    setCompanyName: (state, action) => {
+      state.companyName = action.payload;
+    },
+    setCompanyAddress: (state, action) => {
+      state.companyAddress = action.payload;
+    },
+    setPhoneNumber: (state, action) => {
+      state.phoneNumber = action.payload;
+    },
+    setAdminEmail: (state, action) => {
+      state.adminEmail = action.payload;
+    },
+    resetForm: () => initialState,  // Reset the form to initial state
   },
 });
 
 // Export the actions to be used in components
-export const { setUsername, setEmail, setPassword, setConfirmPassword, resetForm } = registerSlice.actions;
+export const { 
+  setUsername, 
+  setEmail, 
+  setPassword, 
+  setConfirmPassword, 
+  setRole, 
+  setCompanyName, 
+  setCompanyAddress, 
+  setPhoneNumber, 
+  setAdminEmail, 
+  resetForm 
+} = registerSlice.actions;
 
 // Export the reducer
 export default registerSlice.reducer;

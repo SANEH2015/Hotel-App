@@ -1,7 +1,9 @@
 // src/firebase.js
+
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";  // Import Firebase Auth
-import { getFirestore } from "firebase/firestore"; // Import Firestore
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";  // Firebase Authentication
+import { getFirestore } from "firebase/firestore"; // Firestore
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Firebase Storage
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,17 +23,41 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase services
 const auth = getAuth(app); // Firebase Auth
 const db = getFirestore(app); // Firestore instance
+const storage = getStorage(app); // Firebase Storage
 
 // Function to register a user with Firebase Auth
 export const registerUser = async (email, password) => {
   try {
+    // Attempt to create user with email and password
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+    return userCredential.user; // Return user object on success
   } catch (error) {
-    throw error.message;
+    // Handle error by logging it and throwing a more readable message
+    console.error("Error registering user:", error.message);
+    throw new Error(error.message);
   }
 };
 
-// Export the db instance for Firestore
-export { db };
-export { auth };
+// Helper function to upload an image to Firebase Storage
+export const uploadImage = async (file, path) => {
+  try {
+    // Define the reference to where the image will be stored in Firebase Storage
+    const storageRef = ref(storage, path);
+
+    // Upload the image file to Firebase Storage
+    await uploadBytes(storageRef, file);
+
+    // Retrieve the download URL for the uploaded image
+    const downloadURL = await getDownloadURL(storageRef);
+
+    // Return the download URL for the image (can be used to save to Firestore)
+    return downloadURL;
+  } catch (error) {
+    // Handle errors during the upload process
+    console.error("Error uploading image to Firebase Storage:", error.message);
+    throw new Error("Failed to upload image");
+  }
+};
+
+// Export Firebase services for use in other files
+export { db, storage, auth };
