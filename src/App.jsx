@@ -19,9 +19,9 @@ import AdminPost from './pages/AdminPost'
 import RegisterPage from './pages/RegisterPage'
 import RegisterAdmin from './pages/RegisterAdmin'
 import Layout from './pages/Layout';
-import Footer from './component/Footer';
+// import Footer from './component/Footer';
 import Nav from './component/Nav';
-import RegisterForm from './component/RegisterForm';
+
 
 function App() {
 
@@ -60,8 +60,8 @@ function App() {
 </Route>
 </Routes> 
     </div>
-    <RegisterForm/>
-      <Footer />
+
+      {/* <Footer /> */}
     </BrowserRouter>
   
    

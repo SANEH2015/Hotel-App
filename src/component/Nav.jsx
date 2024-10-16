@@ -1,131 +1,19 @@
 import React from 'react';
-import { Link, useLocation } from "react-router-dom";
 
-export default function Nav() {
-  const location = useLocation();
+const Nav = () => {
+    return (
+        <header className="flex justify-between items-center p-5 bg-white shadow">
+            <h1 className="text-4xl font-bold">Lairom</h1>
+            <nav className="space-x-4">
+                <a href="LandingPage" className="text-gray-700">Home</a>
+                <a href="RegisterPage" className="text-gray-700">Register</a>
+                <a href="LoginPage" className="text-gray-700">Login</a>
+                <a href="Accommodation" className="text-gray-700">Accommodation</a>
+                <a href="#" className="text-gray-700">Contact</a>
+            </nav>
+            <button className="bg-yellow-500 text-white px-4 py-2 rounded">Book Now</button>
+        </header>
+    );
+};
 
-  // Function to determine the active link
-  const isActive = (path) => location.pathname === path ? "text-yellow-500 font-bold" : "text-blue-600";
-
-  return (
-    <div>
-      {/* Responsive Breadcrumbs Navigation */}
-      <nav className="bg-gray-100 p-4 rounded-lg shadow-md">
-        {/* For larger screens (md and up), breadcrumbs will be horizontal, stacking vertically for smaller screens */}
-        <ol className="flex flex-wrap md:flex-nowrap space-x-2 md:space-x-4 text-sm">
-          {/* Breadcrumb Item */}
-          <li className="flex items-center">
-            <Link to="/" className={`${isActive("/")}`}>
-              LandingPage
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-          
-          <li className="flex items-center">
-            <Link to="/LoginPage" className={`${isActive("/LoginPage")}`}>
-              LoginPage
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-          
-          <li className="flex items-center">
-            <Link to="/LoginAdmin" className={`${isActive("/LoginAdmin")}`}>
-              LoginAdmin
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-          
-          <li className="flex items-center">
-            <Link to="/RegisterAdmin" className={`${isActive("/RegisterAdmin")}`}>
-              RegisterAdmin
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-          
-          <li className="flex items-center">
-            <Link to="/RegisterPage" className={`${isActive("/RegisterPage")}`}>
-              Register
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-          
-          <li className="flex items-center">
-            <Link to="/Accommodation" className={`${isActive("/Accommodation")}`}>
-              Accommodation
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/BookingPage" className={`${isActive("/BookingPage")}`}>
-              BookingPage
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/Bookingview" className={`${isActive("/Bookingview")}`}>
-              Bookingview
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/BookingHistory" className={`${isActive("/BookingHistory")}`}>
-              BookingHistory
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/PaymentPage" className={`${isActive("/PaymentPage")}`}>
-              PaymentPage
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/ProfilePage" className={`${isActive("/ProfilePage")}`}>
-              Profile
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/CheckoutPage" className={`${isActive("/CheckoutPage")}`}>
-              CheckoutPage
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/FaviratePage" className={`${isActive("/FaviratePage")}`}>
-              Favirate
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/RatingPage" className={`${isActive("/RatingPage")}`}>
-              RatingPage
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/AdminPost" className={`${isActive("/AdminPost")}`}>
-              AdminPost
-            </Link>
-            <span className="mx-2 text-gray-400 hidden md:inline">/</span>
-          </li>
-
-          <li className="flex items-center">
-            <Link to="/AdminPage" className={`${isActive("/AdminPage")}`}>
-              AdminPage
-            </Link>
-          </li>
-        </ol>
-      </nav>
-    </div>
-  );
-}
+export default Nav;

@@ -46,7 +46,7 @@ export default function Footer() {
       </div>
       {/* Footer Bottom Text */}
       <div style={footerBottomStyle}>
-        <p>&copy; 2024 MyCompany. All rights reserved.</p>
+        <p>&copy; 2024 Hotel App. All rights reserved.</p>
       </div>
     </footer>
   );

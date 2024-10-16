@@ -1,7 +1,7 @@
-// firebase.js
+// src/firebase.js
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";  // Import Firebase Auth
+import { getFirestore } from "firebase/firestore"; // Import Firestore
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,7 +19,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase services
-const auth = getAuth(app);  // Firebase Auth
+const auth = getAuth(app); // Firebase Auth
+const db = getFirestore(app); // Firestore instance
 
 // Function to register a user with Firebase Auth
 export const registerUser = async (email, password) => {
@@ -30,3 +31,7 @@ export const registerUser = async (email, password) => {
     throw error.message;
   }
 };
+
+// Export the db instance for Firestore
+export { db };
+export { auth };
