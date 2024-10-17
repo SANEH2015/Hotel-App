@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postAccommodation } from '../features/accommodationsSlice';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import Footer from '../component/Footer';
 
 const AdminPostForm = () => {
   const [title, setTitle] = useState('');
@@ -46,6 +47,7 @@ const AdminPostForm = () => {
   };
 
   return (
+    <>
     <div className="container mx-auto p-4 bg-gray-100">
       <h2 className="text-3xl font-semibold text-center mb-8">Post New Accommodation</h2>
 
@@ -133,7 +135,10 @@ const AdminPostForm = () => {
           {isSubmitting ? 'Posting...' : 'Post Accommodation'}
         </button>
       </form>
+   
     </div>
+       <Footer/>
+    </>   
   );
 };
 

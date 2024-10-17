@@ -10,7 +10,7 @@ const Nav = () => {
                 <a href="LoginPage" className="text-gray-700">Login</a>
                 <a href="Accommodation" className="text-gray-700">Accommodation</a>
                 <a href="AdminPostForm" className="text-gray-700">Admin </a>
-                <a href="AccommodationAccommodations" className="text-gray-700">Admin Accommodation</a>
+                <a href="PaymentPage" className="text-gray-700">Checkout</a>
                 <a href="#" className="text-gray-700">Contact</a>
             </nav>
             <button className="bg-yellow-500 text-white px-4 py-2 rounded">Book Now</button>

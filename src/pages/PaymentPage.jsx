@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from '../component/Footer';
 
 const PaymentPage = () => {
   const [cartItems, setCartItems] = useState([
@@ -131,6 +132,7 @@ const PaymentPage = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

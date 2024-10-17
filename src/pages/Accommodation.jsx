@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { db } from '../firebaseConfig'; // Import Firebase config
 import { collection, getDocs } from "firebase/firestore"; // Firestore functions
+import Footer from '../component/Footer';
 
 const Accommodation = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -47,6 +48,7 @@ const Accommodation = () => {
   }
 
   return (
+    <>
     <div className="container mx-auto p-4 bg-gray-100">
       <hr className="mb-8" />
       <h2 className="text-3xl font-semibold text-center mb-8">Accommodation</h2>
@@ -124,7 +126,10 @@ const Accommodation = () => {
           </div>
         ))}
       </div>
+    
     </div>
+      <Footer/>
+     </>
   );
 };
 
