@@ -19,7 +19,16 @@ const AdminAccommodations = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((accommodation) => (
           <div key={accommodation.id} className="bg-white p-4 rounded-lg shadow-lg">
-            {/* Accommodation Content (similar to what you showed earlier) */}
+            <img
+              src={accommodation.imageUrl} // Display the image
+              alt={accommodation.title}
+              className="w-full h-64 object-cover mb-4 rounded-md"
+            />
+            <h3 className="text-xl font-semibold">{accommodation.title}</h3>
+            <p className="text-gray-600">{accommodation.category}</p>
+            <p className="text-gray-600">{accommodation.address}</p>
+            <p className="text-gray-600">{accommodation.description}</p>
+            <p className="text-gray-600">${accommodation.price}</p>
           </div>
         ))}
       </div>

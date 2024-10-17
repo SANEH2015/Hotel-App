@@ -22,6 +22,7 @@ import Layout from './pages/Layout';
 // import Footer from './component/Footer';
 import Nav from './component/Nav';
 import AdminAccommodations from './pages/AdminAccommodations';
+import AdminPostForm from './pages/AdminPostForm';
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
   <Route path="AdminAccoommodations" element={<AdminAccommodations />} />
   <Route path="RegisterPage" element={<RegisterPage />} />
   <Route path="RegisterAdmin" element={<RegisterAdmin />} />
+  <Route path="AdminPostForm" element={<AdminPostForm />} />
   {/* <Route path="*" element={<NoPage />} /> */}
 </Route>
 </Routes> 

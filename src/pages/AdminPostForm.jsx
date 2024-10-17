@@ -36,7 +36,7 @@ const AdminPostForm = () => {
       // Dispatch the post accommodation action
       await dispatch(postAccommodation(accommodationData, image));
       alert('Accommodation posted successfully!');
-      navigate('/admin/accommodations'); // Replace history.push with navigate
+      navigate('AdminAccommodations'); // Replace history.push with navigate
     } catch (error) {
       console.error('Failed to post accommodation:', error);
       alert('Failed to post accommodation. Please try again.');

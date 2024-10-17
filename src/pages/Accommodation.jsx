@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
-
-
+import React, { useState, useEffect } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { db } from '../firebaseConfig'; // Import Firebase config
+import { collection, getDocs } from "firebase/firestore"; // Firestore functions
 
 const Accommodation = () => {
   const [activeCategory, setActiveCategory] = useState('all');
- 
   const [favorites, setFavorites] = useState({});
+  const [items, setItems] = useState([]); // State to store accommodations
+  const [loading, setLoading] = useState(true); // Loading state
 
-  
-  const items = [
-    { id: 1, category: '2Bed Rooms', image: 'https://th.bing.com/th?id=OIP.w5PUvE5RNxlyp3Au5RLVAQHaE2&w=308&h=202&c=8&rs=1&qlt=90&o=6&cb=13&dpr=1.5&pid=3.1&rm=2', title: 'Spacious Suite', description: 'A spacious 2-bedroom suite with a modern kitchen and living area.', address: '1234 Elm Street, Springfield', price: 120 },
-    { id: 2, category: '2Bed Rooms', image: 'https://th.bing.com/th/id/OIP.jn6W5vU0NLEF_xxBTxtHHwHaE8?w=276&h=184&c=7&r=0&o=5&dpr=1.5&pid=1.7', title: 'Penthouse View', description: 'Luxury penthouse with floor-to-ceiling windows and a rooftop terrace.', address: '5678 Oak Avenue, Springfield', price: 250 },
-    { id: 3, category: '1Bed Room', image: 'https://th.bing.com/th/id/OIP.giAXnbM94RO98vGbtpB90QHaFj?w=245&h=184&c=7&r=0&o=5&dpr=1.5&pid=1.7', title: 'Cozy Retreat', description: 'A cozy 1-bedroom retreat with a warm atmosphere and a garden view.', address: '9101 Pine Lane, Springfield', price: 80 },
-    { id: 4, category: 'Room with Balcony', image: 'http://ts1.mm.bing.net/th?id=OIP.4FNO0vXw64tByCWBBWkiAAAAAA&pid=15.1', title: 'Balcony Escape', description: 'A charming room with a balcony that overlooks the city skyline.', address: '1357 Birch Boulevard, Springfield', price: 150 },
-    { id: 5, category: 'Room with Balcony', image: 'http://ts2.mm.bing.net/th?id=OIP.-OetIklw2Km93-cnZZmq3AAAAA&pid=15.1', title: 'Urban Loft', description: 'Modern loft-style room with a private balcony and quick city access.', address: '2468 Cedar Court, Springfield', price: 200 },
-  ];
+  // Fetch data from Firestore when the component mounts
+  useEffect(() => {
+    const fetchAccommodations = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "accommodations"));
+        const accommodations = [];
+        querySnapshot.forEach((doc) => {
+          accommodations.push({ id: doc.id, ...doc.data() });
+        });
+        setItems(accommodations);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching accommodations: ", error);
+        setLoading(false);
+      }
+    };
+
+    fetchAccommodations();
+  }, []); // Empty dependency array ensures this runs once when the component mounts
 
   // Filtered items based on active category
   const filteredItems = activeCategory === 'all'
@@ -29,6 +41,10 @@ const Accommodation = () => {
       [id]: !prev[id], // Toggle the current favorite status
     }));
   };
+
+  if (loading) {
+    return <div>Loading accommodations...</div>;
+  }
 
   return (
     <div className="container mx-auto p-4 bg-gray-100">

@@ -1,19 +1,12 @@
 import React from 'react'
 
-
-import AdminAccommodations from './AdminAccommodations'
-
-
-
-
-
-
+import LoginForm from '../component/LoginForm'
 
 export default function LoginPage() {
 
   return (
     <div>
-<AdminAccommodations/>
+<LoginForm/>
     </div>
   )
 }

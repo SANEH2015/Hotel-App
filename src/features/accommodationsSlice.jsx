@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { db } from '../firebaseConfig'; // Import your firebase config
-import { collection, getDocs } from 'firebase/firestore'; // Import Firestore methods
+import { db } from '../firebaseConfig'; // Import firebase config
+import { collection, getDocs, addDoc } from 'firebase/firestore'; // Import Firestore methods
 
 // Define an async thunk to fetch accommodations from Firestore
 export const fetchAccommodations = createAsyncThunk('accommodations/fetchAccommodations', async () => {
@@ -18,16 +18,32 @@ export const fetchAccommodations = createAsyncThunk('accommodations/fetchAccommo
   }
 });
 
+// Define an async thunk to post a new accommodation to Firestore
+export const postAccommodation = createAsyncThunk(
+  'accommodations/postAccommodation',
+  async (accommodationData, { rejectWithValue }) => {
+    try {
+      const accommodationsRef = collection(db, 'accommodations');
+      // Add the new accommodation to the collection
+      const docRef = await addDoc(accommodationsRef, accommodationData);
+      return { id: docRef.id, ...accommodationData };
+    } catch (error) {
+      return rejectWithValue('Failed to post accommodation: ' + error.message);
+    }
+  }
+);
+
 // Slice definition
 const accommodationsSlice = createSlice({
   name: 'accommodations',
   initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
+    items: [], // Stores fetched accommodations
+    isLoading: false, // Tracks loading state
+    error: null, // Holds any errors encountered during async actions
   },
-  reducers: {},
+  reducers: {}, // No synchronous reducers
   extraReducers: (builder) => {
+    // Fetch accommodations case reducers
     builder
       .addCase(fetchAccommodations.pending, (state) => {
         state.isLoading = true;
@@ -35,11 +51,27 @@ const accommodationsSlice = createSlice({
       })
       .addCase(fetchAccommodations.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = action.payload; // Set the fetched accommodations in state
+        state.items = action.payload;
       })
       .addCase(fetchAccommodations.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+      });
+
+    // Post accommodation case reducers
+    builder
+      .addCase(postAccommodation.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(postAccommodation.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // Add the newly created accommodation to the state
+        state.items.push(action.payload);
+      })
+      .addCase(postAccommodation.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload; // Use rejectWithValue payload for errors
       });
   },
 });
