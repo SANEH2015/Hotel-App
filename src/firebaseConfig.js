@@ -1,8 +1,6 @@
-// src/firebase.js
-
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";  // Firebase Authentication
-import { getFirestore } from "firebase/firestore"; // Firestore
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth"; // Firebase Authentication
+import { getFirestore, doc, setDoc, collection } from "firebase/firestore"; // Firestore
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Firebase Storage
 
 // Your web app's Firebase configuration
@@ -20,44 +18,73 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase services
-const auth = getAuth(app); // Firebase Auth
-const db = getFirestore(app); // Firestore instance
-const storage = getStorage(app); // Firebase Storage
+// Firebase services
+export const auth = getAuth(app); // Firebase Authentication
+export const db = getFirestore(app); // Firestore
+export const storage = getStorage(app); // Firebase Storage
 
-// Function to register a user with Firebase Auth
-export const registerUser = async (email, password) => {
+// Function to register user in Firebase Authentication and store additional details in Firestore
+export const registerUser = async (email, password, username, role, companyName, companyAddress, phoneNumber, adminEmail) => {
   try {
-    // Attempt to create user with email and password
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    return userCredential.user; // Return user object on success
+    const user = userCredential.user;
+
+    await updateProfile(user, { displayName: username });
+
+    const userRef = doc(db, "users", user.uid);
+    const userData = {
+      username,
+      email,
+      role,
+      companyName,
+      companyAddress,
+      phoneNumber,
+      adminEmail,
+      createdAt: new Date(),
+    };
+
+    await setDoc(userRef, userData);
+    return user;
   } catch (error) {
-    // Handle error by logging it and throwing a more readable message
     console.error("Error registering user:", error.message);
     throw new Error(error.message);
   }
 };
 
-// Helper function to upload an image to Firebase Storage
-export const uploadImage = async (file, path) => {
+// Function to login user with email and password
+export const loginUser = async (email, password) => {
   try {
-    // Define the reference to where the image will be stored in Firebase Storage
-    const storageRef = ref(storage, path);
-
-    // Upload the image file to Firebase Storage
-    await uploadBytes(storageRef, file);
-
-    // Retrieve the download URL for the uploaded image
-    const downloadURL = await getDownloadURL(storageRef);
-
-    // Return the download URL for the image (can be used to save to Firestore)
-    return downloadURL;
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
   } catch (error) {
-    // Handle errors during the upload process
-    console.error("Error uploading image to Firebase Storage:", error.message);
-    throw new Error("Failed to upload image");
+    console.error("Error logging in user:", error.message);
+    throw new Error(error.message);
   }
 };
 
-// Export Firebase services for use in other files
-export { db, storage, auth };
+// Function to add accommodation to Firestore
+export const addAccommodation = async (accommodationData) => {
+  try {
+    const accommodationRef = collection(db, "accommodations");
+    const docRef = await setDoc(doc(accommodationRef), accommodationData);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding accommodation:", error.message);
+    throw new Error(error.message);
+  }
+};
+
+// Function to upload image to Firebase Storage
+export const uploadImage = async (file) => {
+  try {
+    const storageRef = ref(storage, `accommodation_images/${file.name}`); // Create a reference to the file in Firebase Storage
+    const snapshot = await uploadBytes(storageRef, file); // Upload the file to Firebase Storage
+
+    // Get the download URL for the uploaded file
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL; // Return the image's download URL
+  } catch (error) {
+    console.error("Error uploading image:", error.message);
+    throw new Error(error.message);
+  }
+};

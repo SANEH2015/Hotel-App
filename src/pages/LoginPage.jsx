@@ -1,6 +1,10 @@
 import React from 'react'
 
-import AdminPost from './AdminPost'
+
+import AdminAccommodations from './AdminAccommodations'
+
+
+
 
 
 
@@ -9,7 +13,7 @@ export default function LoginPage() {
 
   return (
     <div>
-<AdminPost/>
+<AdminAccommodations/>
     </div>
   )
 }

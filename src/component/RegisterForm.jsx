@@ -13,6 +13,7 @@ import {
   resetForm,
 } from '../features/RegisterSlice'; 
 import { registerUser } from '../firebaseConfig'; 
+import { setUser } from '../features/authSlice';  // Import setUser from authSlice
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -100,11 +101,19 @@ const RegisterForm = () => {
     // If validation passes
     if (validateForm()) {
       try {
-        const user = await registerUser(email, password); // Register the user
-        console.log("User registered:", user);
+        const user = await registerUser(
+          email, 
+          password, 
+          username, 
+          role, 
+          companyName, 
+          companyAddress, 
+          phoneNumber, 
+          adminEmail
+        ); // Register the user and store in Firestore
 
-        // You can now store user data in Firestore if needed
-        // Example: save additional user details like username, role, and admin info
+        // Dispatch setUser to update Redux state
+        dispatch(setUser(user));
 
         // Reset form fields
         dispatch(resetForm());
@@ -113,7 +122,7 @@ const RegisterForm = () => {
         alert('Registration successful!');
 
       } catch (err) {
-        setErrors({ ...errors, email: err });
+        setErrors({ ...errors, email: err.message });
       }
     }
   };
@@ -205,7 +214,7 @@ const RegisterForm = () => {
           {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
         </div>
 
-        {/* Admin-specific fields */}
+        {/* Fields for Admin only */}
         {role === 'admin' && (
           <>
             <div className="mb-4">
@@ -237,7 +246,7 @@ const RegisterForm = () => {
             <div className="mb-4">
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number</label>
               <input
-                type="tel"
+                type="text"
                 id="phoneNumber"
                 name="phoneNumber"
                 value={phoneNumber}
@@ -262,12 +271,12 @@ const RegisterForm = () => {
           </>
         )}
 
-        <button
-          type="submit"
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Register
-        </button>
+        {/* Submit button */}
+        <div className="mb-4">
+          <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded-md">
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );

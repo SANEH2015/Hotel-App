@@ -15,12 +15,13 @@ import PaymentPage from './pages/PaymentPage'
 import CheckoutPage from './pages/CheckoutPage'
 import FaviratePage from './pages/FaviratePage'
 import RatingPage from './pages/RatingPage'
-import AdminPost from './pages/AdminPost'
+
 import RegisterPage from './pages/RegisterPage'
 import RegisterAdmin from './pages/RegisterAdmin'
 import Layout from './pages/Layout';
 // import Footer from './component/Footer';
 import Nav from './component/Nav';
+import AdminAccommodations from './pages/AdminAccommodations';
 
 
 function App() {
@@ -47,13 +48,12 @@ function App() {
   <Route path="CheckoutPage" element={<CheckoutPage />} />
   <Route path="FaviratePage" element={<FaviratePage />} />
   <Route path="RatingPage" element={<RatingPage />} />
-  <Route path="AdminPost" element={<AdminPost />} />
   <Route path="RegisterPage" element={<RegisterPage />} />
   <Route path="RegisterAdmin" element={<RegisterAdmin />} />
   <Route path="LandingPage" element={<LandingPage />} />
   <Route path="FaviratePage" element={<FaviratePage />} />
   <Route path="RatingPage" element={<RatingPage />} />
-  <Route path="AdminPost" element={<AdminPost />} />
+  <Route path="AdminAccoommodations" element={<AdminAccommodations />} />
   <Route path="RegisterPage" element={<RegisterPage />} />
   <Route path="RegisterAdmin" element={<RegisterAdmin />} />
   {/* <Route path="*" element={<NoPage />} /> */}
