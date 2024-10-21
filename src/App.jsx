@@ -54,7 +54,7 @@ function App() {
   <Route path="LandingPage" element={<LandingPage />} />
   <Route path="FaviratePage" element={<FaviratePage />} />
   <Route path="RatingPage" element={<RatingPage />} />
-  <Route path="AdminAccoommodations" element={<AdminAccommodations />} />
+  <Route path="AdminAccommodations" element={<AdminAccommodations />} />
   <Route path="RegisterPage" element={<RegisterPage />} />
   <Route path="RegisterAdmin" element={<RegisterAdmin />} />
   <Route path="AdminPostForm" element={<AdminPostForm />} />
