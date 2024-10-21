@@ -160,9 +160,7 @@ const AdminPostForm = () => {
           <div>
             <button
               type="submit"
-              className={`w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-all duration-300 ease-in-out ${
-                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+              className={`w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-all duration-300 ease-in-out ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Posting...' : 'Post Accommodation'}
@@ -171,8 +169,8 @@ const AdminPostForm = () => {
         </form>
       </div>
 
-  
-      {/* <Footer /> */}
+      {/* Footer */}
+ 
     </div>
   );
 };
