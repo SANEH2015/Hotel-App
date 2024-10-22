@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth"; // Firebase Authentication
-import { getFirestore, doc, setDoc, collection } from "firebase/firestore"; // Firestore
+import { getFirestore, doc, setDoc, collection, updateDoc } from "firebase/firestore"; // Firestore
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // Your web app's Firebase configuration
@@ -85,6 +85,17 @@ export const uploadImage = async (file) => {
     return downloadURL; // Return the image's download URL
   } catch (error) {
     console.error("Error uploading image:", error.message);
+    throw new Error(error.message);
+  }
+};
+
+// Function to book accommodation
+export const bookAccommodation = async (id) => {
+  try {
+    const accommodationRef = doc(db, "accommodations", id);
+    await updateDoc(accommodationRef, { booked: true }); // Update the booked status to true
+  } catch (error) {
+    console.error("Error booking accommodation:", error.message);
     throw new Error(error.message);
   }
 };

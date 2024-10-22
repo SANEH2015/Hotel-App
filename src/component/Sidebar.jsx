@@ -6,7 +6,7 @@ const Sidebar = () => {
   const location = useLocation(); // To highlight the active link
 
   return (
-    <div className="fixed left-0 top-0 h-full bg-gray-800 text-white w-64 p-4 shadow-lg">
+    <div className="fixed left-0 top-0 h-full bg-gray-800 text-white w-64 p-4 shadow-lg mt-4"> {/* Added mt-4 here */}
       <div className="flex items-center justify-center mb-8">
         <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
       </div>
@@ -15,6 +15,7 @@ const Sidebar = () => {
         {/* Home Link */}
         <Link
           to="/LandingPage"
+          aria-label="Home"
           className={`flex items-center space-x-2 p-2 rounded-lg transition-all duration-300 ease-in-out ${
             location.pathname === '/adminHome' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700'
           }`}
@@ -26,6 +27,7 @@ const Sidebar = () => {
         {/* Post Accommodation Link */}
         <Link
           to="/AdminPostForm"
+          aria-label="Post Accommodation"
           className={`flex items-center space-x-2 p-2 rounded-lg transition-all duration-300 ease-in-out ${
             location.pathname === '/adminPostForm' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700'
           }`}
@@ -37,6 +39,7 @@ const Sidebar = () => {
         {/* Manage Accommodations Link */}
         <Link
           to="/AdminAccommodations"
+          aria-label="Manage Accommodations"
           className={`flex items-center space-x-2 p-2 rounded-lg transition-all duration-300 ease-in-out ${
             location.pathname === '/AdminAccommodations' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700'
           }`}
@@ -48,6 +51,7 @@ const Sidebar = () => {
         {/* Logout Link */}
         <Link
           to="/LandingPage"
+          aria-label="Logout"
           className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-all duration-300 ease-in-out"
         >
           <FaSignOutAlt size={20} />
